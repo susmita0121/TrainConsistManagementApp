@@ -1,38 +1,42 @@
-import java.util.LinkedHashSet;
+import java.util.HashMap;
+import java.util.Map;
 
 
 
 public class TrainConsistManagementApp {
 
 
+
         public static void main(String[] args) {
 
 
             System.out.println("====================================");
-            System.out.println("=== UC5 - Preserve Insertion Order of Bogies ===");
+            System.out.println("=== UC6 - Map Bogie to Capacity ===");
             System.out.println("====================================");
 
 
-            LinkedHashSet<String> trainFormation = new LinkedHashSet<>();
+            HashMap<String, Integer> bogieCapacity = new HashMap<>();
 
-            trainFormation.add("Engine");
-            trainFormation.add("Sleeper");
-            trainFormation.add("Cargo");
-            trainFormation.add("Guard");
+            bogieCapacity.put("First Class", 24);
+            bogieCapacity.put("Cargo", 120);
+            bogieCapacity.put("Sleeper", 72);
+            bogieCapacity.put("AC Chair", 56);
 
-
-            trainFormation.add("Sleeper");
 
 
             System.out.println();
-            System.out.println("Train Formation After Insertions:");
-            System.out.println(trainFormation);
+            System.out.println("Bogie Capacity Details:");
+
+            for (Map.Entry<String, Integer> entry : bogieCapacity.entrySet()) {
+                System.out.println(entry.getKey() + " -> " + entry.getValue());
+            }
 
 
             System.out.println();
-            System.out.println("UC5 insertion order preserved successfully...");
+            System.out.println("UC6 mapping operations completed successfully...");
         }
-
     }
+
+
 
 
