@@ -1,32 +1,55 @@
 import java.util.*;
-import java.util.regex.*;
+import java.util.stream.*;
 
-public class TrainConsistMangementApp {
+public class TrainConsistManagementApp {
+
+
+    static class GoodsBogie {
+        String type;   // Cylindrical, Open, Box
+        String cargo;  // Petroleum, Coal, Grain
+
+        GoodsBogie(String type, String cargo) {
+            this.type = type;
+            this.cargo = cargo;
+        }
+    }
+
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
 
-        System.out.print("Enter Train ID: ");
-        String trainId = sc.nextLine();
+        System.out.println("========================================");
+        System.out.println("UC12 - Safety Compliance Check");
+        System.out.println("========================================\n");
 
-        System.out.print("Enter Cargo Code: ");
-        String cargoCode = sc.nextLine();
 
-        Pattern trainPattern = Pattern.compile("TRN-\\d{4}");
-        Pattern cargoPattern = Pattern.compile("PET-[A-Z]{2}");
+        List<GoodsBogie> bogies = new ArrayList<>();
 
-        Matcher trainMatcher = trainPattern.matcher(trainId);
-        Matcher cargoMatcher = cargoPattern.matcher(cargoCode);
+        bogies.add(new GoodsBogie("Cylindrical", "Petroleum"));
+        bogies.add(new GoodsBogie("Open", "Coal"));
+        bogies.add(new GoodsBogie("Box", "Grain"));
+        bogies.add(new GoodsBogie("Cylindrical", "Petroleum"));
 
-        if (trainMatcher.matches()) {
-            System.out.println("Valid Train ID");
-        } else {
-            System.out.println("Invalid Train ID");
+
+
+        System.out.println("Goods Bogies:");
+        for (GoodsBogie b : bogies) {
+            System.out.println(b.type + " -> " + b.cargo);
         }
 
-        if (cargoMatcher.matches()) {
-            System.out.println("Valid Cargo Code");
+
+        boolean isSafe = bogies.stream()
+                .allMatch(b ->
+                        !b.type.equalsIgnoreCase("Cylindrical")
+                                || b.cargo.equalsIgnoreCase("Petroleum")
+                );
+
+
+        System.out.println("\nSafety Status:");
+        if (isSafe) {
+            System.out.println("Train is SAFE for operation");
         } else {
-            System.out.println("Invalid Cargo Code");
+            System.out.println("Train is NOT SAFE! Rule violation detected");
         }
+
+        System.out.println("\nUC12 safety check completed...");
     }
 }
