@@ -2,8 +2,7 @@
 import java.util.*;
 import java.util.stream.*;
 
-public class TrainConsistMangementApp {
-
+public class TrainConsistManagementApp {
     static class PassengerBogie {
         String type;
         int capacity;
