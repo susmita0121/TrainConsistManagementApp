@@ -1,41 +1,59 @@
-import java.util.HashMap;
-import java.util.Map;
-
-
 
 public class TrainConsistManagementApp {
 
-
-
-        public static void main(String[] args) {
-
-
-            System.out.println("====================================");
-            System.out.println("=== UC6 - Map Bogie to Capacity ===");
-            System.out.println("====================================");
-
-
-            HashMap<String, Integer> bogieCapacity = new HashMap<>();
-
-            bogieCapacity.put("First Class", 24);
-            bogieCapacity.put("Cargo", 120);
-            bogieCapacity.put("Sleeper", 72);
-            bogieCapacity.put("AC Chair", 56);
-
-
-
-            System.out.println();
-            System.out.println("Bogie Capacity Details:");
-
-            for (Map.Entry<String, Integer> entry : bogieCapacity.entrySet()) {
-                System.out.println(entry.getKey() + " -> " + entry.getValue());
-            }
-
-
-            System.out.println();
-            System.out.println("UC6 mapping operations completed successfully...");
+    static class CargoSafetyException extends RuntimeException {
+        public CargoSafetyException(String message) {
+            super(message);
         }
     }
+
+    static class GoodsBogie {
+        private String shape;
+        private String cargo;
+
+        public GoodsBogie(String shape) {
+            this.shape = shape;
+        }
+
+        public void assignCargo(String cargoType) {
+            try {
+                if (shape.equalsIgnoreCase("Rectangular") &&
+                        cargoType.equalsIgnoreCase("Petroleum")) {
+                    throw new CargoSafetyException(
+                            "Unsafe Assignment! Petroleum cannot be stored in Rectangular Bogie."
+                    );
+                }
+
+                this.cargo = cargoType;
+                System.out.println("Cargo assigned successfully: " + cargoType);
+
+            } catch (CargoSafetyException e) {
+                System.out.println("Error: " + e.getMessage());
+            } finally {
+                System.out.println("Cargo assignment process completed.\n");
+            }
+        }
+
+        public String getCargo() {
+            return cargo;
+        }
+    }
+
+    public static void main(String[] args) {
+
+        GoodsBogie bogie1 = new GoodsBogie("Cylindrical");
+        bogie1.assignCargo("Petroleum");
+
+        GoodsBogie bogie2 = new GoodsBogie("Rectangular");
+        bogie2.assignCargo("Petroleum");
+
+        GoodsBogie bogie3 = new GoodsBogie("Rectangular");
+        bogie3.assignCargo("Coal");
+    }
+}
+
+
+
 
 
 
