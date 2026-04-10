@@ -1,15 +1,12 @@
-import java.util.*;
-import java.util.regex.*;
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
 
-public class TrainConsistMangementApp {
+ class TrainConsistMangementApp {
+
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
 
-        System.out.print("Enter Train ID: ");
-        String trainId = sc.nextLine();
-
-        System.out.print("Enter Cargo Code: ");
-        String cargoCode = sc.nextLine();
+        String trainId = "TRN-1234";
+        String cargoCode = "PET-AB";
 
         Pattern trainPattern = Pattern.compile("TRN-\\d{4}");
         Pattern cargoPattern = Pattern.compile("PET-[A-Z]{2}");
@@ -17,16 +14,22 @@ public class TrainConsistMangementApp {
         Matcher trainMatcher = trainPattern.matcher(trainId);
         Matcher cargoMatcher = cargoPattern.matcher(cargoCode);
 
+        System.out.println("========================================");
+        System.out.println("UC11 - Regex Validation");
+        System.out.println("========================================\n");
+
         if (trainMatcher.matches()) {
-            System.out.println("Valid Train ID");
+            System.out.println("Train ID is valid: " + trainId);
         } else {
-            System.out.println("Invalid Train ID");
+            System.out.println("Invalid Train ID: " + trainId);
         }
 
         if (cargoMatcher.matches()) {
-            System.out.println("Valid Cargo Code");
+            System.out.println("Cargo Code is valid: " + cargoCode);
         } else {
-            System.out.println("Invalid Cargo Code");
+            System.out.println("Invalid Cargo Code: " + cargoCode);
         }
+
+        System.out.println("\nUC11 validation completed...");
     }
 }
